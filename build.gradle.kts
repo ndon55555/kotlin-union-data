@@ -4,7 +4,7 @@ val kotlinVersion = "1.3.21"
 val spekVersion = "2.0.1"
 
 plugins {
-    java
+    id("com.gradle.build-scan") version "1.16"
     kotlin("jvm") version "1.3.21"
 }
 
@@ -27,6 +27,10 @@ dependencies {
 }
 
 tasks {
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+
     withType<Test> {
         useJUnitPlatform {
             includeEngines("spek2")
@@ -34,9 +38,12 @@ tasks {
     }
 }
 
+buildScan {
+    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+    setTermsOfServiceAgree("yes")
+    publishAlways()
+}
+
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
-}
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
 }
