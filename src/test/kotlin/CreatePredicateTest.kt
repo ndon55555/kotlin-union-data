@@ -25,6 +25,28 @@ class CreatePredicateTest : Spek({
         }
     }
 
+    describe("A String predicate with further constraints") {
+        val stringPred = asA<String> { length > 5 }
+
+        context("test object is not the same type") {
+            it("returns false") {
+                assertFalse(stringPred(1))
+            }
+        }
+
+        context("test object is same type but fails constraints") {
+            it("returns false") {
+                assertFalse(stringPred("foo"))
+            }
+        }
+
+        context("test object is same type and passes constraints") {
+            it("returns true") {
+                assertTrue(stringPred("123456"))
+            }
+        }
+    }
+
     describe("A List<Int> predicate") {
         val intListPred = isA<List<Int>>()
 

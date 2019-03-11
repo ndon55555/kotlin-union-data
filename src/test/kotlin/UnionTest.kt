@@ -26,4 +26,8 @@ class UnionTest : Spek({
             }
         }
     }
+
+    describe("A union of conjunctions") {
+
+    }
 })
